@@ -11,10 +11,19 @@ check_service_initialized init 20-php-fpm
 
 sanity_db
 db_ready mariadb
-
+set -x
 if [ -z "${MATOMO_VERSION}" ]; then
     MATOMO_VERSION="latest"
 fi
+
+ls -l /container/state/env/10-nginx/
+cat /container/state/env/sites/matomo
+echo "SITE_USER=${SITE_USER}"
+echo "SITE_GROUP=${SITE_GROUP}"
+echo "SITE_MATOMO_ROOT=${SITE_MATOMO_ROOT}"
+echo "SITE_MATOMO_USER=${SITE_MATOMO_USER}"
+echo "SITE_MATOMO_GROUP=${SITE_MATOMO_GROUP}"
+env | grep SITE
 
 if [ ! -f "${SITE_MATOMO_ROOT}"/index.php ] || var_true "${MATOMO_INSTALL}" ; then
     print_warn "No Matomo Installation Found, Installing..."
