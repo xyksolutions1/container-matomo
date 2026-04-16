@@ -16,16 +16,16 @@ if [ -z "${MATOMO_VERSION}" ]; then
     MATOMO_VERSION="latest"
 fi
 
-if [ ! -f "${SITE_MATOMO_WEBROOT}"/index.php ] || var_true "${MATOMO_INSTALL}" ; then
+if [ ! -f "${SITE_MATOMO_ROOT}"/index.php ] || var_true "${MATOMO_INSTALL}" ; then
     print_warn "No Matomo Installation Found, Installing..."
-    create_folder "${SITE_MATOMO_WEBROOT}" "${SITE_USER}":"${SITE_GROUP}" 750
-    curl -ssL https://builds.matomo.org/https://builds.matomo.org/matomo-5.8.0.tar.gzpiwik-latest.tar.gz | tar xfz - --strip 1 -C "${SITE_MATOMO_WEBROOT}"
-    curl -ssL https://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz | gunzip -c > "${SITE_MATOMO_WEBROOT}"/misc/GeoIPCity.dat
+    create_folder "${SITE_MATOMO_ROOT}" "${SITE_USER}":"${SITE_GROUP}" 750
+    curl -ssL https://builds.matomo.org/https://builds.matomo.org/matomo-5.8.0.tar.gzpiwik-latest.tar.gz | tar xfz - --strip 1 -C "${SITE_MATOMO_ROOT}"
+    curl -ssL https://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz | gunzip -c > "${SITE_MATOMO_ROOT}"/misc/GeoIPCity.dat
     print_notice "Install Complete"
 fi
 
-echo "*/${CRON_PERIOD} * * * * sudo -u ${SITE_USER} TZ=${TIMEZONE} php ${SITE_MATOMO_WEBROOT}/console core:archive >/dev/null 2>&1" | write_file /container/cron/matomo_archive_reports
-echo "alias console='cd ${SITE_MATOMO_WEBROOT}; sudo -u ${SITE_USER} php ./console'" | write_file -a /root/.bashrc
-chown -R "${SITE_USER}":"${SITE_GROUP}" "${SITE_MATOMO_WEBROOT}"
+echo "*/${CRON_PERIOD} * * * * sudo -u ${SITE_USER} TZ=${TIMEZONE} php ${SITE_MATOMO_ROOT}/console core:archive >/dev/null 2>&1" | write_file /container/cron/matomo_archive_reports
+echo "alias console='cd ${SITE_MATOMO_ROOT}; sudo -u ${SITE_USER} php ./console'" | write_file -a /root/.bashrc
+chown -R "${SITE_USER}":"${SITE_GROUP}" "${SITE_MATOMO_ROOT}"
 
 liftoff
