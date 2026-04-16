@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: © 2025 Nfrastack <code@nfrastack.com>
+# SPDX-FileCopyrightText: © 2026 Nfrastack <code@nfrastack.com>
 #
 # SPDX-License-Identifier: MIT
 
@@ -23,30 +23,31 @@ COPY README.md /usr/src/container/README.md
 
 ENV \
     CRON_PERIOD=60 \
-    NGINX_SITE_ENABLED=matomo \
-    PHP_MODULE_ENABLE_CREATE_SAMPLE_PHP=FALSE \
-    PHP_MODULE_ENABLE_DOM=TRUE \
-    PHP_MODULE_ENABLE_ICONV=TRUE \
-    PHP_MODULE_ENABLE_IGBINARY=TRUE \
-    PHP_MODULE_ENABLE_LDAP=TRUE \
-    PHP_MODULE_ENABLE_PDO=TRUE \
-    PHP_MODULE_ENABLE_PDO_MYSQL=TRUE \
-    PHP_MODULE_ENABLE_MYSQLND=TRUE \
-    PHP_MODULE_ENABLE_REDIS=TRUE \
-    PHP_MODULE_ENABLE_SIMPLEXML=TRUE \
-    PHP_MODULE_ENABLE_XML=TRUE \
-    PHP_MODULE_ENABLE_XMLREADER=TRUE \
     IMAGE_NAME=nfrastack/matomo \
     IMAGE_REPO_URL=https://github.com/nfrastack/container-matomo
 
 RUN echo "" && \
+    BUILD_ENV=" \
+                    10-nginx/NGINX_SITE_ENABLED=matomo \
+                    20-php-fpm/PHP_MODULE_ENABLE_CREATE_SAMPLE_PHP=FALSE \
+                    20-php-fpm/PHP_MODULE_ENABLE_DOM=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_ICONV=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_IGBINARY=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_LDAP=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_PDO=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_PDO_MYSQL=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_MYSQLND=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_REDIS=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_SIMPLEXML=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_XML=TRUE \
+                    20-php-fpm/PHP_MODULE_ENABLE_XMLREADER=TRUE \
+                " && \
     source /container/base/functions/container/build && \
     container_build_log image && \
     package update && \
     package upgrade && \
     php-ext prepare && \
     php-ext reset && \
-    php-ext enable core && \
     package cleanup
 
 COPY rootfs /
