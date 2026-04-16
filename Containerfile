@@ -29,7 +29,7 @@ ENV \
 RUN echo "" && \
     BUILD_ENV=" \
                     10-nginx/NGINX_SITE_ENABLED=matomo \
-                    20-php-fpm/PHP_MODULE_ENABLE_CREATE_SAMPLE_PHP=FALSE \
+                    20-php-fpm/PHP_CREATE_SAMPLE_PHP=FALSE \
                     20-php-fpm/PHP_MODULE_ENABLE_DOM=TRUE \
                     20-php-fpm/PHP_MODULE_ENABLE_ICONV=TRUE \
                     20-php-fpm/PHP_MODULE_ENABLE_IGBINARY=TRUE \
