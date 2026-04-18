@@ -41,7 +41,7 @@ RUN echo "" && \
                     20-php-fpm/PHP_MODULE_ENABLE_SIMPLEXML=TRUE \
                     20-php-fpm/PHP_MODULE_ENABLE_XML=TRUE \
                     20-php-fpm/PHP_MODULE_ENABLE_XMLREADER=TRUE \
-                " && \
+               " && \
     source /container/base/functions/container/build && \
     container_build_log image && \
     package update && \

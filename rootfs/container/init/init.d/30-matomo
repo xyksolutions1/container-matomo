@@ -28,7 +28,7 @@ env | grep SITE
 if [ ! -f "${SITE_MATOMO_ROOT}"/index.php ] || var_true "${MATOMO_INSTALL}" ; then
     print_warn "No Matomo Installation Found, Installing..."
     create_folder "${SITE_MATOMO_ROOT}" "${SITE_USER}":"${SITE_GROUP}" 750
-    curl -ssL https://builds.matomo.org/https://builds.matomo.org/matomo-5.8.0.tar.gz | tar xfz - --strip 1 -C "${SITE_MATOMO_ROOT}"
+    curl -ssL https://builds.matomo.org/matomo-${MATOMO_VERSION}.tar.gz | tar xfz - --strip 1 -C "${SITE_MATOMO_ROOT}"
     curl -ssL https://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz | gunzip -c > "${SITE_MATOMO_ROOT}"/misc/GeoIPCity.dat
     print_notice "Install Complete"
 fi
