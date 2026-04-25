@@ -5,16 +5,16 @@
 ARG \
     BASE_IMAGE
 
-FROM ${BASE_IMAGE}
+FROM docker.io/xyksolutions1/container-nginx-php-fpm:latest
 
 LABEL \
         org.opencontainers.image.title="Matomo" \
         org.opencontainers.image.description="Web analytics platform" \
-        org.opencontainers.image.url="https://hub.docker.com/r/nfrastack/matomo" \
-        org.opencontainers.image.documentation="https://github.com/nfrastack/container-matomo/blob/main/README.md" \
-        org.opencontainers.image.source="https://github.com/nfrastack/container-matomo.git" \
-        org.opencontainers.image.authors="Nfrastack <code@nfrastack.com>" \
-        org.opencontainers.image.vendor="Nfrastack <https://www.nfrastack.com>" \
+        org.opencontainers.image.url="https://hub.docker.com/r/xyksolutions1/matomo" \
+        org.opencontainers.image.documentation="https://github.com/xyksolutions1/container-matomo/blob/main/README.md" \
+        org.opencontainers.image.source="https://github.com/xyksolutions1/container-matomo.git" \
+        org.opencontainers.image.authors="xyksolutions1" \
+        org.opencontainers.image.vendor="xyksolutions1" \
         org.opencontainers.image.licenses="MIT"
 
 COPY CHANGELOG.md /usr/src/container/CHANGELOG.md
@@ -24,7 +24,7 @@ COPY README.md /usr/src/container/README.md
 ENV \
     CRON_PERIOD=60 \
     IMAGE_NAME=nfrastack/matomo \
-    IMAGE_REPO_URL=https://github.com/nfrastack/container-matomo
+    IMAGE_REPO_URL=https://github.com/xyksolutions1/container-matomo
 
 RUN echo "" && \
     BUILD_ENV=" \
